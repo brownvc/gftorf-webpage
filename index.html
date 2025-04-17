@@ -103,26 +103,40 @@ redirect_from: gftorf/
     </style>
   
   <script>
-    function addVideoGrid(div, data) {
+    function addVideoGrid(div, data, playbackRate = 0.5) {
       console.warn(data);
-      let str = "<div class='centerContent'><table><tbody>";
+      let str = "";
       for (let i = 0; i < data.length; i++) {
-        str += "<tr>";
         for (let j = 0; j < data[i].length; j++) {
           if (data[i][j]) {
-            str += "<td><p>" + data[i][j].label + "</p><video loop controls muted playbackRate=0.5 width=175px><source src=" + data[i][j].path + " type='video/mp4'></video></td>";
-          } else {
-            str += "<td></td>"
+            const width = data[i][j].width;
+            const height = data[i][j].height;
+            const xtranslate = data[i][j].xTranslate || -50;
+
+            const labelHTML = `<p style="font-weight: bold;">${data[i][j].label}</p>`;
+            const annotationHTML = `<p style="margin-top: -0.3em;">${data[i][j].annotation}</p>`
+
+            str += `
+              <div style="text-align: center;">
+                ${labelHTML}
+                ${annotationHTML}
+              </div>
+              <div style="position: relative; height: ${height}px;">
+                <video loop controls muted playbackRate="0.5" width="${width}px"
+                      style="position: absolute; left: 50%; transform: translateX(${xtranslate}%);">
+                  <source src="${data[i][j].path}" type="video/mp4">
+                </video>
+              </div>
+            `;
           }
         }
-        str += "</tr>";
       }
-      str += "</tbody></table></div>"
-      div.innerHTML = div.innerHTML + str;
+      div.innerHTML += str;
+
 
       // Videos are too fast, set playback to be half speed by default
       justAddedVideos = div.getElementsByTagName("video")
-      setPlaybackRateOnVideos( justAddedVideos, 0.5 );
+      setPlaybackRateOnVideos( justAddedVideos, playbackRate );
     }
 
     function addVideoControls(div, videoDivName) {
@@ -281,6 +295,171 @@ redirect_from: gftorf/
         </tr>
       </table>
 
+      <h2>Supplemental video results</h2>
+
+      <p><em>Note:</em> This page has 100+ videos. Each set of results will show/hide through a button to ease the burden on the browser.</p>
+  
+  
+      <h3>Index</h3>
+      <a id="datasetindex"></a>
+      <div id="datasetindexappend"></div>
+  
+      <h2>Datasets</h2>
+      <a id="datasets"></a>
+  
+      <script>
+        const datasets = [
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'baseball',
+            displayName: 'Baseball',
+            gt_exists: false,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'target1',
+            displayName: 'Target',
+            gt_exists: false,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'pillow',
+            displayName: 'Pillow',
+            gt_exists: false,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'jacks1',
+            displayName: 'Jacks',
+            gt_exists: false,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'fan',
+            displayName: 'Fan',
+            gt_exists: false,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'sliding_cube',
+            displayName: 'Sliding Cube',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'arcing_cube',
+            displayName: 'Arcing Cube',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'speed_test_texture',
+            displayName: 'Cube Speed Test',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'speed_test_chair',
+            displayName: 'Chairs Speed Test',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'occlusion',
+            displayName: 'Occlusion',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'acute_z_speed_test',
+            displayName: 'Acute Z motion',
+            gt_exists: true,
+          },
+          {
+            folder: 'videos/ftorf_scenes',
+            name: 'z_motion_speed_test',
+            displayName: 'Z Motion Speed Test',
+            gt_exists: true,
+          },
+        ]
+  
+        const methods = [
+          {
+            name: 'baseline',
+            displayName: 'Baselines, Depths',
+            width: 900,
+            height: 280,
+          },
+          {
+            name: 'quads_ppt',
+            displayName: 'C-ToF v.s. Ours, Quads & Depths',
+            annotation: `
+              <span style="display: block; font-size: 13px; color: #555; line-height: 1.4; max-width: 680px; margin: 0 auto;">
+                Things to check:<br>
+                (1) desynchronization of raw C-ToF quads (pause the video)<br>
+                (2) raw C-ToF (e.g. motion-induced) depth artifacts<br>
+                (3) synchronization of our rendered quads<br>
+                (4) our rendered/corrected depth
+              </span>`,            
+            width: 1000,
+            height: 280,
+            xTranslate: -54,
+          },
+          {
+            name: 'quads_all',
+            displayName: 'C-ToF v.s. Ours, Quads & Depths',
+            width: 1500,
+            height: 450,
+            xTranslate: -54,
+          }
+        ]
+  
+        datasets.forEach((d, i) => {
+          const index = document.getElementById("datasetindexappend")
+          index.innerHTML += (i + 1) + ". <a href='#" + d.name + "-results'>Results on the <span class='dataset'>" + d.displayName + "</span> dataset<br>"
+  
+          const target = document.getElementById("datasets")
+          const dsDiv = document.createElement("div")
+          dsDiv.setAttribute("id", d.name + '-results')
+          target.append(dsDiv)
+          dsDiv.innerHTML += "<h2>" + (i + 1) + ". Results on the <span class='dataset'>" + d.displayName + "</span> dataset &nbsp; <a href='#top'>🔝</a></h2>"
+  
+          dsDiv.innerHTML = dsDiv.innerHTML + `<button onclick='
+                                              showVideoDiv(\"` + d.name + `\");
+                                              setPlayStateOnVideos( document.getElementById(\"` + d.name + `-results\").getElementsByTagName( \"video\" ), true ` + `);
+                                              window.location = \"#Dataset` + d.name + `\";'
+                                            >
+                                            Show Videos
+                                            </button>`
+          dsDiv.innerHTML = dsDiv.innerHTML + `<button onclick='hideVideoDiv(\"` + d.name + `\")'>Hide Videos</button>`
+  
+          const videoGridData = methods.map((method) => ([
+            {
+              path: d.folder + "/" + d.name + "/" + method.name + '.mp4',
+              label: method.displayName,
+              width: (!d.gt_exists && method.name == 'baseline') ? method.width * 0.8 : method.width,
+              height: method.height,
+              xTranslate: method.xTranslate,
+              annotation: method.annotation ?? "",
+            }
+          ]))
+
+  
+          const videoDiv = document.createElement("div")
+          
+          if( d.note != undefined && d.note != "" )
+          {
+            videoDiv.innerHTML += "<p><em>Note:</em> " + d.note + "</p>"
+          }
+  
+          videoDiv.setAttribute("id", d.name + '-videos')
+          dsDiv.append(videoDiv);
+          // addVideoControls(videoDiv, d.name + '-videos')
+          const playbackRate = d.gt_exists ? 0.5 : 0.25;
+          addVideoGrid(videoDiv, videoGridData, playbackRate);
+          hideVideoDiv(d.name);
+        });
+      </script>  
     <h2>Acknowledgements</h2>
     RL, MO, ZG, AHD, JT thank NSF CAREER 2144956, NASA RI-80NSSC23M0075, and Cognex. MOT thanks NSF CAREER 2238485.
     <br>
