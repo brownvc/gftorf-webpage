@@ -1,7 +1,3 @@
---- 
-redirect_from: gftorf/
----
-
 <!DOCTYPE html>
 <html>
 
@@ -48,10 +44,10 @@ redirect_from: gftorf/
     }
 
     PRE {
-        font-family:    'Monotype.com', Courier New, monospace;
-        font-size:  0.7em;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+      font-family: 'Monotype.com', Courier New, monospace;
+      font-size:  0.9em;
+      background-color: #f5f5f5;
+      border-radius: 4px;
     }
 
     a {
@@ -106,6 +102,7 @@ redirect_from: gftorf/
     function addVideoGrid(div, data, playbackRate = 0.5) {
       console.warn(data);
       let str = "";
+      let addRemark = false;
       for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < data[i].length; j++) {
           if (data[i][j]) {
@@ -113,11 +110,14 @@ redirect_from: gftorf/
             const height = data[i][j].height;
             const xtranslate = data[i][j].xTranslate || -50;
 
+            const remarkHTML = (!addRemark) ? `${data[i][j].remark}` : ``;
+            addRemark = true;
             const labelHTML = `<p style="font-weight: bold;">${data[i][j].label}</p>`;
             const annotationHTML = `<p style="margin-top: -0.3em;">${data[i][j].annotation}</p>`
 
             str += `
               <div style="text-align: center;">
+                ${remarkHTML}
                 ${labelHTML}
                 ${annotationHTML}
               </div>
@@ -201,9 +201,16 @@ redirect_from: gftorf/
 
 <body>
   <div id="container">
-    
     <h1>Time of the Flight of the Gaussians:<br>Optimizing Depth Indirectly in Dynamic Radiance Fields</h1>
-    <h2>CVPR 2025</h2>
+    <h2>CVPR 2025 (Oral Presentation)</h2>
+    <h3 style="color: black; text-align: center";>
+      Meet us at:
+      <br>
+      Oral Session 5C — Sun 15 Jun 9:30-9:45 a.m. CDT, Davidson Ballroom
+      <br>
+      Poster Session 5 — Sun 15 Jun 10:30 a.m.-12:30 p.m. CDT, ExHall D
+      <br>
+    </h3>
 
     <table class="center">
       <tr>
@@ -239,23 +246,31 @@ redirect_from: gftorf/
       <tr>
         <td>
           <a href="CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.pdf">
-          <img src="./images/paper.png" style="height:150px;border:2px solid #000;">
+            <img src="./images/paper.png" style="height:150px;border:1px solid #000;">
           </a>
-          <br>
           <p>
-            <a href="CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.pdf">Paper PDF</a>
+            <a href="CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.pdf">Paper</a>
           </p>      
         </td>
         <td>
-            <img src="./images/github-mark.svg" style="height:150px;border:2px solid #000;">
-          <br>
+          <a href="https://arxiv.org/abs/">
+            <img src="./images/arxiv.jpg" style="height:150px;border:1px solid #000;">
+          </a>
           <p>
-            Code (working on it...)
+            <a href="https://arxiv.org/abs/">arXiv</a>
+          </p>
+        </td>
+        <td>
+          <a href="https://github.com/brownvc/gftorf">
+            <img src="./images/github-mark.svg" style="height:150px;border:1px solid #000;">
+          </a>
+          <p>
+            <a href="https://github.com/brownvc/gftorf">Code</a>
           </p>
         </td>
         <td>
             <a href="https://1drv.ms/f/c/4dd35d8ee847a247/EsiF6mb15ZlKlTZmg8N_OIcBCaQGUmWWVNOldMTaRsQXeQ?e=eIy7Rz">
-              <img src="./images/dataset.png" style="height:150px;border:2px solid #000;">
+              <img src="./images/dataset.png" style="height:150px;border:1px solid #000;">
             </a>
           <br>
           <p>
@@ -263,8 +278,18 @@ redirect_from: gftorf/
           </p>
         </td>
       </tr>
-  </table>
+    </table>
     
+    <table class="center">
+      <tr>
+          <td><video src="videos/teaser_video.mp4" type="video/mp4" height="300" autoplay muted loop controls></video></td>
+          <td><img src="images/magma_colorbar_right_labeled.png" height="297"></td>
+        </tr>
+      <tr style="text-align:center">
+          <td></td>
+          <td></td>
+        </tr>
+    </table>
     <h2>Abstract</h2>
     <p class="center">
         We present a method to reconstruct dynamic scenes from monocular continuous-wave time-of-flight (C-ToF) cameras using raw sensor samples that achieves similar or better accuracy than neural volumetric approaches and is 100x faster. 
@@ -277,163 +302,147 @@ redirect_from: gftorf/
 
     <h2>Video</h2>
     <div style="text-align: center">
-      <video src="videos/CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.mp4" width="500px" controls></video>
+      <!-- <video src="videos/CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.mp4" width="800px" controls poster="images/supp_video_poster.png"></video> -->
+      <iframe width="720" height="405"
+          src="https://www.youtube.com/embed/RT7JVbnS4to"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+      </iframe>
     </div>
 
-    <h2>Bibtex</h2>
-    <table class="center">
-        <tr>
-          <td>
-            <pre>
-<code>@inproceedings{li2025gftorf,
-    title={Time of the Flight of the {Gaussians}: Optimizing Depth Indirectly in Dynamic Radiance Fields},
-    author={Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha and Richardt, Christian and O’Toole, Matthew and Tompkin, James},
-    booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}
-    year={2025},
-}</code></pre>
-          </td>
-        </tr>
-      </table>
+    <br>
+    <h2>Results</h2>
 
-      <h2>Supplemental video results</h2>
+    <a id="datasetindex"></a>
+    <div id="datasetindexappend"></div>
 
-      <p><em>Note:</em> This page has 100+ videos. Each set of results will show/hide through a button to ease the burden on the browser.</p>
-  
-  
-      <h3>Index</h3>
-      <a id="datasetindex"></a>
-      <div id="datasetindexappend"></div>
-  
-      <h2>Datasets</h2>
-      <a id="datasets"></a>
-  
-      <script>
-        const datasets = [
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'baseball',
-            displayName: 'Baseball',
-            gt_exists: false,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'target1',
-            displayName: 'Target',
-            gt_exists: false,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'pillow',
-            displayName: 'Pillow',
-            gt_exists: false,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'jacks1',
-            displayName: 'Jacks',
-            gt_exists: false,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'fan',
-            displayName: 'Fan',
-            gt_exists: false,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'sliding_cube',
-            displayName: 'Sliding Cube',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'arcing_cube',
-            displayName: 'Arcing Cube',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'speed_test_texture',
-            displayName: 'Cube Speed Test',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'speed_test_chair',
-            displayName: 'Chairs Speed Test',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'occlusion',
-            displayName: 'Occlusion',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'acute_z_speed_test',
-            displayName: 'Acute Z motion',
-            gt_exists: true,
-          },
-          {
-            folder: 'videos/ftorf_scenes',
-            name: 'z_motion_speed_test',
-            displayName: 'Z Motion Speed Test',
-            gt_exists: true,
-          },
-        ]
-  
-        const methods = [
-          {
-            name: 'baseline',
-            displayName: 'Baselines, Depths',
-            width: 900,
-            height: 280,
-          },
-          {
-            name: 'quads_ppt',
-            displayName: 'C-ToF v.s. Ours, Quads & Depths',
-            annotation: `
-              <span style="display: block; font-size: 13px; color: #555; line-height: 1.4; max-width: 680px; margin: 0 auto;">
-                Things to check:<br>
-                (1) desynchronization of raw C-ToF quads (pause the video)<br>
-                (2) raw C-ToF (e.g. motion-induced) depth artifacts<br>
-                (3) synchronization of our rendered quads<br>
-                (4) our rendered/corrected depth
-              </span>`,            
-            width: 1000,
-            height: 280,
-            xTranslate: -54,
-          },
-          {
-            name: 'quads_all',
-            displayName: 'C-ToF v.s. Ours, Quads & Depths',
-            width: 1500,
-            height: 450,
-            xTranslate: -54,
+    <a id="datasets"></a>
+
+    <script>
+      const datasets = [
+        { folder: 'videos/ftorf_scenes', name: 'baseball', displayName: 'Baseball', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'target1', displayName: 'Target', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'pillow', displayName: 'Pillow', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'jacks1', displayName: 'Jacks', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'fan', displayName: 'Fan', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'sliding_cube', displayName: 'Sliding Cube', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'arcing_cube', displayName: 'Arcing Cube', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'speed_test_texture', displayName: 'Cube Speed Test', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'speed_test_chair', displayName: 'Chairs Speed Test', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'occlusion', displayName: 'Occlusion', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'acute_z_speed_test', displayName: 'Acute Z motion', gt_exists: true, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'z_motion_speed_test', displayName: 'Z Motion Speed Test', gt_exists: true, group: 'F-TöRF Scenes' },
+
+        { folder: 'videos/torf_scenes', name: 'cupboard', displayName: 'Cupboard', gt_exists: false, isToRF: true, group: 'TöRF Scenes' },
+        { folder: 'videos/torf_scenes', name: 'deskbox', displayName: 'Deskbox', gt_exists: false, isToRF: true, group: 'TöRF Scenes' },
+        { folder: 'videos/torf_scenes', name: 'copier', displayName: 'Photocopier', gt_exists: false, isToRF: true, group: 'TöRF Scenes' },
+        { folder: 'videos/torf_scenes', name: 'studybook', displayName: 'Studybook', gt_exists: false, isToRF: true, group: 'TöRF Scenes' },
+        { folder: 'videos/torf_scenes', name: 'phonebooth', displayName: 'Phonebooth', gt_exists: false, isToRF: true, group: 'TöRF Scenes' },
+      ];
+
+      const methods = [
+        {
+          name: 'baseline',
+          displayName: 'Baselines (Depths)',
+          width: 900,
+          height: 280,
+        },
+        {
+          name: 'quads_ppt',
+          displayName: 'C-ToF v.s. Ours (Quads & Depths)',
+          annotation: `
+            <span style="display: block; font-size: 13px; color: #555; line-height: 1.4; max-width: 680px; margin: 0 auto;">
+              Things to check (pause the video):<br>
+              (1) desynchronization of raw C-ToF quads (row 1, quads)<br>
+              (2) raw C-ToF (e.g. motion-induced) depth artifacts (row 1, depth)<br>
+              (3) synchronization of our rendered quads (row 2, quads)<br>
+              (4) our rendered/corrected depth (row 2, depth)
+            </span>`,            
+          width: 1000,
+          height: 280,
+          xTranslate: -50,
+        },
+        {
+          name: 'quads_all',
+          displayName: 'How we solve this problem: C-ToF v.s. Our 3D Motion-Based Interpolation (Quads & Depths)',
+          width: 1500,
+          height: 450,
+          xTranslate: -50,
+        }
+      ]
+
+      const methods_torf = [
+        {
+          name: 'baseline',
+          displayName: 'Baselines',
+          width: 900,
+          height: 280,
+        }
+      ]
+
+      const groups = {};
+      datasets.forEach(d => {
+        if (!groups[d.group]) groups[d.group] = [];
+        groups[d.group].push(d);
+      });
+
+      const index = document.getElementById("datasetindexappend");
+      const target = document.getElementById("datasets");
+
+      Object.keys(groups).forEach(groupName => {
+        // Add group title to index
+        index.innerHTML += `<h3 style="color: rgb(213, 28, 37)">${groupName}</h3>`;
+        
+        groups[groupName].forEach((d, i) => {
+          index.innerHTML += `<a href='#${d.name}-results'><span class='dataset'>${i+1}. ${d.displayName}</span><br>`;
+        });
+
+        target.innerHTML += `<h3 style="color: rgb(213, 28, 37); text-align: center;">${groupName}</h3>`;
+        if (groupName == "TöRF Scenes") {
+          target.innerHTML += `<p style="text-align: center;"><i>
+            *Erratum: 
+            The TöRF results in our CVPR paper were affected by a bug in the computation of d_sh_p.<br>
+            The corrected results are shown below and are included in our updated arXiv paper.
+            </i></p>`;
+        }
+
+        groups[groupName].forEach((d, i) => {
+          const dsDiv = document.createElement("div");
+          dsDiv.setAttribute("id", d.name + '-results');
+          target.append(dsDiv);
+
+          dsDiv.innerHTML += `<h4 style="color: rgb(213, 28, 37); text-align: center;">` + (i + 1) + ". " + d.displayName + " &nbsp;</h4>";
+
+          dsDiv.innerHTML += `<button onclick='
+            showVideoDiv(\"${d.name}\");
+            setPlayStateOnVideos(document.getElementById(\"${d.name}-results\").getElementsByTagName(\"video\"), true);
+            window.location = \"#Dataset${d.name}\";'
+          >Show Videos</button>`;
+
+          dsDiv.innerHTML += `<button onclick='hideVideoDiv(\"${d.name}\")'>Hide Videos</button>`;
+
+        if (d.isToRF) {
+          videoGridData = methods_torf.map((method) => ([
+            {
+              path: d.folder + "/" + d.name + "/" + method.name + '.mp4',
+              label: method.displayName,
+              width: method.width,
+              height: method.height,
+              xTranslate: method.xTranslate,
+              annotation: method.annotation ?? "",
+              remark: `<p><i>*Remark: The result is based on training with phasors.</i></p>`,
+            }
+          ]))
+        } else {
+          remark_ = ``
+          if (d.displayName == "Fan") {
+            remark_ = `<p><i>*Remark: Non-piecewise linear motion on the fan blades is challenging with our piecewise linear motion</i></p>`;
+          } else if (d.displayName == "Acute Z motion") {
+            remark_ = `<p><i>*Remark: The right cube suffers from a local minima at the last two integer frames</i></p>`;
           }
-        ]
-  
-        datasets.forEach((d, i) => {
-          const index = document.getElementById("datasetindexappend")
-          index.innerHTML += (i + 1) + ". <a href='#" + d.name + "-results'>Results on the <span class='dataset'>" + d.displayName + "</span> dataset<br>"
-  
-          const target = document.getElementById("datasets")
-          const dsDiv = document.createElement("div")
-          dsDiv.setAttribute("id", d.name + '-results')
-          target.append(dsDiv)
-          dsDiv.innerHTML += "<h2>" + (i + 1) + ". Results on the <span class='dataset'>" + d.displayName + "</span> dataset &nbsp; <a href='#top'>🔝</a></h2>"
-  
-          dsDiv.innerHTML = dsDiv.innerHTML + `<button onclick='
-                                              showVideoDiv(\"` + d.name + `\");
-                                              setPlayStateOnVideos( document.getElementById(\"` + d.name + `-results\").getElementsByTagName( \"video\" ), true ` + `);
-                                              window.location = \"#Dataset` + d.name + `\";'
-                                            >
-                                            Show Videos
-                                            </button>`
-          dsDiv.innerHTML = dsDiv.innerHTML + `<button onclick='hideVideoDiv(\"` + d.name + `\")'>Hide Videos</button>`
-  
-          const videoGridData = methods.map((method) => ([
+          videoGridData = methods.map((method) => ([
             {
               path: d.folder + "/" + d.name + "/" + method.name + '.mp4',
               label: method.displayName,
@@ -441,43 +450,56 @@ redirect_from: gftorf/
               height: method.height,
               xTranslate: method.xTranslate,
               annotation: method.annotation ?? "",
+              remark: remark_,
             }
           ]))
+        }                             
 
-  
-          const videoDiv = document.createElement("div")
-          
-          if( d.note != undefined && d.note != "" )
-          {
-            videoDiv.innerHTML += "<p><em>Note:</em> " + d.note + "</p>"
-          }
-  
-          videoDiv.setAttribute("id", d.name + '-videos')
-          dsDiv.append(videoDiv);
-          // addVideoControls(videoDiv, d.name + '-videos')
-          const playbackRate = d.gt_exists ? 0.5 : 0.25;
-          addVideoGrid(videoDiv, videoGridData, playbackRate);
-          hideVideoDiv(d.name);
-        });
-      </script>  
+        const videoDiv = document.createElement("div")
+        
+        if( d.note != undefined && d.note != "" )
+        {
+          videoDiv.innerHTML += "<p><em>Note:</em> " + d.note + "</p>"
+        }
+
+        videoDiv.setAttribute("id", d.name + '-videos')
+        dsDiv.append(videoDiv);
+        const playbackRate = d.isToRF ? 1.0 : (d.gt_exists ? 0.5 : 0.25);
+        addVideoGrid(videoDiv, videoGridData, playbackRate);
+        hideVideoDiv(d.name);
+      });
+    });
+    </script>  
+    
+    <br>
+    <h2>BibTex</h2>
+    <table class="center">
+      <tr>
+        <td>
+          <pre>
+<code>@inproceedings{li2025gftorf,
+    title={Time of the Flight of the Gaussians: Optimizing Depth Indirectly in Dynamic Radiance Fields},
+    author={Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha 
+        and Richardt, Christian and O'Toole, Matthew and Tompkin, James},
+    booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}
+    year={2025},
+}</code></pre>
+        </td>
+      </tr>
+    </table>
+
+    <br>
     <h2>Acknowledgements</h2>
     RL, MO, ZG, AHD, JT thank NSF CAREER 2144956, NASA RI-80NSSC23M0075, and Cognex. MOT thanks NSF CAREER 2238485.
     <br>
 
-<table style="border-spacing: 0px 0;">
-<tr>
-<td><img src="./images/nsf-logo-desktop.svg" width="200px"></td>
-<td><img src="./images/nasa-logo-web-rgb.webp" width="130px"></td>
-<td><img src="./images/cognexLogo.jpg" width="130px"></td>
-</tr>
-</table>
-
-<!--
-The work was presented orally at <a href="https://necv2024.github.io/">NECV 2024 workshop</a>.
--->
-
-</div>
-
+    <table style="border-spacing: 0px 0;">
+    <tr>
+    <td><img src="./images/nsf-logo-desktop.svg" width="200px"></td>
+    <td><img src="./images/nasa-logo-web-rgb.webp" width="130px"></td>
+    <td><img src="./images/cognexLogo.jpg" width="130px"></td>
+    </tr>
+    </table>
+  </div>
 </body>
-
 </html>
