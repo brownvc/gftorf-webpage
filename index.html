@@ -253,11 +253,11 @@
           </p>      
         </td>
         <td>
-          <a href="https://arxiv.org/abs/">
+          <a href="https://arxiv.org/abs/2505.05356">
             <img src="./images/arxiv.jpg" style="height:150px;border:1px solid #000;">
           </a>
           <p>
-            <a href="https://arxiv.org/abs/">arXiv</a>
+            <a href="https://arxiv.org/abs/2505.05356">arXiv</a>
           </p>
         </td>
         <td>
@@ -265,16 +265,23 @@
             <img src="./images/github-mark.svg" style="height:150px;border:1px solid #000;">
           </a>
           <p>
-            <a href="https://github.com/brownvc/gftorf">Code</a>
+            <a href="https://github.com/brownvc/gftorf">Code (Coming soon)</a>
+          </p>
+        </td>
+        <td>
+            <a href="#">
+              <img src="./images/models_paper.png" style="height:150px;border:1px solid #000;">
+            </a>
+          <p>
+            <a href="#">Models (Coming soon)</a>
           </p>
         </td>
         <td>
             <a href="https://github.com/brownvc/gftorf/blob/main/DATASET_README.md">
               <img src="./images/dataset.png" style="height:150px;border:1px solid #000;">
             </a>
-          <br>
           <p>
-            <a href="https://github.com/brownvc/gftorf/blob/main/DATASET_README.md">Data</a>
+            <a href="https://github.com/brownvc/gftorf/blob/main/DATASET_README.md">Data (Coming soon)</a>
           </p>
         </td>
       </tr>
@@ -282,7 +289,7 @@
     
     <table class="center">
       <tr>
-          <td><video src="videos/teaser_video_black_texts.mp4" type="video/mp4" height="325" autoplay muted loop controls></video></td>
+          <td><video src="videos/teaser_video.mp4" type="video/mp4" height="325" autoplay muted loop controls></video></td>
             <td style="vertical-align: top; padding-top: 3px;"><img src="images/magma_colorbar_right_labeled.png" height="297"></td>
         </tr>
       <tr style="text-align:center">
@@ -300,9 +307,14 @@
         Experimental results show that our approach produces accurate reconstructions under constrained C-ToF sensing conditions, including for fast motions like swinging baseball bats.
     </p>
 
-    <h2>Video</h2>
+    <h2>
+      Video
+      <br>
+      <a href="videos/CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.mp4" style="font-size: 0.75em; font-weight: 400;"> 
+        Download, MP4 (47MB)
+      </a>
+    </h2>
     <div style="text-align: center">
-      <!-- <video src="videos/CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.mp4" width="800px" controls poster="images/supp_video_poster.png"></video> -->
       <iframe width="720" height="405"
           src="https://www.youtube.com/embed/RT7JVbnS4to"
           title="YouTube video player"
@@ -310,7 +322,25 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
       </iframe>
+      <br>
     </div>
+
+    <br>
+    <h2>BibTex</h2>
+    <table class="center">
+      <tr>
+        <td>
+          <pre>
+<code>@inproceedings{li2025gftorf,
+    title={Time of the Flight of the {Gaussians}: Optimizing Depth Indirectly in Dynamic Radiance Fields},
+    author={Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha 
+        and Richardt, Christian and O'Toole, Matthew and Tompkin, James},
+    booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}
+    year={2025},
+}</code></pre>
+        </td>
+      </tr>
+    </table>
 
     <br>
     <h2>Results</h2>
@@ -470,23 +500,6 @@
       });
     });
     </script>  
-    
-    <br>
-    <h2>BibTex</h2>
-    <table class="center">
-      <tr>
-        <td>
-          <pre>
-<code>@inproceedings{li2025gftorf,
-    title={Time of the Flight of the {Gaussians}: Optimizing Depth Indirectly in Dynamic Radiance Fields},
-    author={Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha 
-        and Richardt, Christian and O'Toole, Matthew and Tompkin, James},
-    booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}
-    year={2025},
-}</code></pre>
-        </td>
-      </tr>
-    </table>
 
     <br>
     <h2>Acknowledgements</h2>
