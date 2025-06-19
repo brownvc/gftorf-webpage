@@ -211,14 +211,14 @@ redirect_from: gftorf/
   <div id="container">
     <h1>Time of the Flight of the Gaussians:<br>Optimizing Depth Indirectly in Dynamic Radiance Fields</h1>
     <h2>CVPR 2025 (Oral Presentation)</h2>
-    <h3 style="color: black; text-align: center";>
+    <!-- <h3 style="color: black; text-align: center";>
       Meet us at:
       <br>
       <a href="https://cvpr.thecvf.com/virtual/2025/session/35398" style="font-weight: 700; color: black;" target="_blank"><u>Oral Session 5C</u></a> — Sun 15 Jun 9:30-9:45 a.m. CDT, Davidson Ballroom
       <br>
       <a href="https://cvpr.thecvf.com/virtual/2025/poster/34194" style="font-weight: 700; color: black;" target="_blank"><u>Poster Session 5, #85</u></a> — Sun 15 Jun 10:30 a.m.-12:30 p.m. CDT, ExHall D
       <br>
-    </h3>
+    </h3> -->
 
     <table class="center">
       <tr>
@@ -253,11 +253,11 @@ redirect_from: gftorf/
     <table class="center">
       <tr>
         <td>
-          <a href="CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.pdf" target="_blank">
+          <a href="https://openaccess.thecvf.com/content/CVPR2025/html/Li_Time_of_the_Flight_of_the_Gaussians_Optimizing_Depth_Indirectly_CVPR_2025_paper.html" target="_blank">
             <img src="./images/paper.png" style="height:150px;border:1px solid #000;">
           </a>
           <p>
-            <a href="CVPR_2025_Li_Time_of_the_Flight_of_the_Gaussians.pdf" target="_blank">Paper</a>
+            <a href="https://openaccess.thecvf.com/content/CVPR2025/html/Li_Time_of_the_Flight_of_the_Gaussians_Optimizing_Depth_Indirectly_CVPR_2025_paper.html" target="_blank">Paper</a>
           </p>      
         </td>
         <td>
@@ -347,12 +347,14 @@ redirect_from: gftorf/
       <tr>
         <td>
           <pre>
-<code>@inproceedings{li2025gftorf,
-    title={Time of the Flight of the {Gaussians}: Optimizing Depth Indirectly in Dynamic Radiance Fields},
-    author={Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha 
-        and Richardt, Christian and O'Toole, Matthew and Tompkin, James},
-    booktitle={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    year={2025},
+<code>@InProceedings{Li_2025_CVPR,
+  author    = {Li, Runfeng and Okunev, Mikhail and Guo, Zixuan and Duong, Anh Ha and Richardt, Christian 
+              and O'Toole, Matthew and Tompkin, James},
+  title     = {Time of the Flight of the Gaussians: Optimizing Depth Indirectly in Dynamic Radiance Fields},
+  booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+  month     = {June},
+  year      = {2025},
+  pages     = {21021-21030}
 }</code></pre>
         </td>
       </tr>
@@ -446,13 +448,6 @@ redirect_from: gftorf/
         });
 
         target.innerHTML += `<h3 style="color: rgb(213, 28, 37); text-align: center;">${groupName}</h3>`;
-        if (groupName == "TöRF Scenes") {
-          target.innerHTML += `<p style="text-align: center;"><i>
-            *Erratum: 
-            The TöRF results in our CVPR paper were affected by a bug in the deformation MLP.<br>
-            The corrected results are shown below and are included in our updated arXiv paper.
-            </i></p>`;
-        }
 
         groups[groupName].forEach((d, i) => {
           const dsDiv = document.createElement("div");
