@@ -278,12 +278,12 @@ redirect_from: gftorf/
         </td>
         <td>
             <!-- <a href="https://drive.google.com/drive/folders/1zaMPEjCJWiIFtjMLTNgt9FOj8zXk79Xm?usp=sharing" target="_blank"> -->
-            <a href="https://drive.google.com/drive/folders/1kllRlB5wVlF6j1lWGyy0k3qgyE72wXjP?usp=drive_link" target="_blank">
+            <a href="https://drive.google.com/drive/folders/1kllRlB5wVlF6j1lWGyy0k3qgyE72wXjP?usp=sharing" target="_blank">
               <img src="./images/models_paper.png" style="height:150px;border:1px solid #000;">
             </a>
           <p>
             <!-- <a href="https://drive.google.com/drive/folders/1zaMPEjCJWiIFtjMLTNgt9FOj8zXk79Xm?usp=sharing" target="_blank">Models</a> -->
-            <a href="https://drive.google.com/drive/folders/1kllRlB5wVlF6j1lWGyy0k3qgyE72wXjP?usp=drive_link" target="_blank">Models</a>
+            <a href="https://drive.google.com/drive/folders/1kllRlB5wVlF6j1lWGyy0k3qgyE72wXjP?usp=sharing" target="_blank">Models</a>
           </p>
         </td>
         <td>
@@ -375,7 +375,8 @@ redirect_from: gftorf/
         { folder: 'videos/ftorf_scenes', name: 'baseball', displayName: 'Baseball', gt_exists: false, group: 'F-TöRF Scenes' },
         { folder: 'videos/ftorf_scenes', name: 'target1', displayName: 'Target', gt_exists: false, group: 'F-TöRF Scenes' },
         { folder: 'videos/ftorf_scenes', name: 'pillow', displayName: 'Pillow', gt_exists: false, group: 'F-TöRF Scenes' },
-        { folder: 'videos/ftorf_scenes', name: 'jacks1', displayName: 'Jacks', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'jacks1', displayName: 'Jacks (Paper)', gt_exists: false, group: 'F-TöRF Scenes' },
+        { folder: 'videos/ftorf_scenes', name: 'jacks1_updated', displayName: 'Jacks (After CVPR Talk)', gt_exists: false, group: 'F-TöRF Scenes' },
         { folder: 'videos/ftorf_scenes', name: 'fan', displayName: 'Fan', gt_exists: false, group: 'F-TöRF Scenes' },
         { folder: 'videos/ftorf_scenes', name: 'sliding_cube', displayName: 'Sliding Cube', gt_exists: true, group: 'F-TöRF Scenes' },
         { folder: 'videos/ftorf_scenes', name: 'arcing_cube', displayName: 'Arcing Cube', gt_exists: true, group: 'F-TöRF Scenes' },
@@ -405,10 +406,10 @@ redirect_from: gftorf/
           annotation: `
             <span style="display: block; font-size: 13px; color: #555; line-height: 1.4; max-width: 680px; margin: 0 auto;">
               Things to check (pause the video):<br>
-              (1) desynchronization of raw C-ToF quads (row 1, quads)<br>
+              (1) desynchronized raw C-ToF quads (row 1, quads)<br>
               (2) raw C-ToF (e.g. motion-induced) depth artifacts (row 1, depth)<br>
-              (3) synchronization of our rendered quads (row 2, quads)<br>
-              (4) our rendered/corrected depth (row 2, depth)
+              (3) rendered synchronized quads via 4D scene reconstruction (row 2, quads)<br>
+              (4) our rendered Gaussians' depth (row 2, depth)
             </span>`,            
           width: 1000,
           height: 280,
@@ -416,7 +417,7 @@ redirect_from: gftorf/
         },
         {
           name: 'quads_all',
-          displayName: 'How we solve this problem: C-ToF v.s. Our 3D Motion-Based Interpolation (Quads & Depths)',
+          displayName: 'What happens in temporal dimension: C-ToF v.s. Our 4D Scene Reconstruction (Quads & Depths)',
           width: 1500,
           height: 450,
           xTranslate: -50,
@@ -450,6 +451,13 @@ redirect_from: gftorf/
         });
 
         target.innerHTML += `<h3 style="color: rgb(213, 28, 37); text-align: center;">${groupName}</h3>`;
+        if (groupName == "TöRF Scenes") {
+          target.innerHTML += `<p style="text-align: center;"><i>
+            *Erratum: 
+            The TöRF results in our CVPR paper were affected by a bug in the deformation MLP.<br>
+            The corrected results are shown below and are included in our updated arXiv paper.
+            </i></p>`;
+        }
 
         groups[groupName].forEach((d, i) => {
           const dsDiv = document.createElement("div");
@@ -484,6 +492,16 @@ redirect_from: gftorf/
             remark_ = `<p><i>*Remark: Non-piecewise linear motion on the fan blades is challenging with our piecewise linear motion</i></p>`;
           } else if (d.displayName == "Acute Z motion") {
             remark_ = `<p><i>*Remark: The right cube suffers from a local minima at the last two integer frames</i></p>`;
+          } else if (d.displayName == "Jacks (Paper)") {
+            remark_ = `<p><i>*Remark: We received a question about the “plant” artifact under the human's thighs during the CVPR talk. 
+              This is due to raw sensor noise in that region, as seen in the C-ToF camera depth and raw frames, where intensities in that area are near zero.
+              We reran this experiment with a higher occupancy bias (by reducing the reflectivity learning rate x1000), 
+              and lowered the quad scale (that's used to scale the raw frames for this scene because we thought it's dark) 
+              from 2.5 back to 1.0 to reduce noise impact. See the "Jacks (After CVPR Talk)" section—these changes fix this artifact.</i></p>`;
+          } else if (d.displayName == "Jacks (After CVPR Talk)") {
+            remark_ = `<p><i>
+              *Remark: We reran this experiment after the CVPR talk to fix the "plant" artifact under the human's thighs.
+              </i></p>`;
           }
           videoGridData = methods.map((method) => ([
             {
