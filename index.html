@@ -103,6 +103,23 @@ redirect_from: gftorf/
         We reconstruct dynamic scenes from a single continuous-wave time-of-flight camera, roughly 100&times; faster than neural volumetric methods. Depth is shown with the magma colour map.
       </figcaption>
     </figure>
+    <script>
+      // Keep the depth colour-bar no taller than the (width-constrained) video.
+      (function () {
+        var row = document.querySelector('.teaser-row');
+        if (!row) return;
+        var v = row.querySelector('video'), bar = row.querySelector('.teaser-colorbar');
+        if (!v || !bar) return;
+        var sync = function () {
+          var h = v.getBoundingClientRect().height;
+          if (h) bar.style.maxHeight = h + 'px';
+        };
+        ['loadedmetadata', 'loadeddata'].forEach(function (e) { v.addEventListener(e, sync); });
+        window.addEventListener('resize', sync);
+        window.addEventListener('load', sync);
+        sync();
+      })();
+    </script>
 
     <section id="abstract-section">
       <h2 id="abstract">Abstract</h2>
