@@ -187,24 +187,6 @@ redirect_from: gftorf/
             }
 
             groups[groupName].forEach(function (d, i) {
-              const h4 = document.createElement('h4');
-              h4.textContent = (i + 1) + '. ' + d.displayName;
-              root.appendChild(h4);
-
-              if (remarks[d.displayName]) {
-                const p = document.createElement('p');
-                p.innerHTML = remarks[d.displayName];
-                root.appendChild(p);
-              }
-              if (d.note) {
-                const p = document.createElement('p');
-                p.innerHTML = '<em>Note:</em> ' + d.note;
-                root.appendChild(p);
-              }
-
-              const dsDiv = document.createElement('div');
-              root.appendChild(dsDiv);
-
               const videos = (d.isToRF ? methods_torf : methods).map(function (m) {
                 return {
                   src: d.folder + '/' + d.name + '/' + m.name + '.mp4',
@@ -214,7 +196,13 @@ redirect_from: gftorf/
                 };
               });
               const rate = d.isToRF ? 1.0 : (d.gt_exists ? 0.5 : 0.25);
-              videoGrid(dsDiv, videos, { controls: true, syncReset: true, rate: rate, layout: 'stack' });
+              // Collapsed by default: each dataset's clips load only when the
+              // reader opens it, so the page isn't a wall of autoplaying video.
+              let intro = '';
+              if (remarks[d.displayName]) intro += remarks[d.displayName];
+              if (d.note) intro += '<p><em>Note:</em> ' + d.note + '</p>';
+              videoGridCollapsible(root, (i + 1) + '. ' + d.displayName, videos,
+                { controls: true, syncReset: true, rate: rate, layout: 'stack', intro: intro });
             });
           });
         });
