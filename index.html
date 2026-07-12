@@ -37,6 +37,10 @@ redirect_from: gftorf/
       justify-content: center;
       align-items: center;
       gap: 16px;
+      /* Clip + thin legend stay side by side (shrink to fit); the shared
+         default wraps, which would drop the colour-bar below. The media
+         query below still stacks them on genuinely narrow screens. */
+      flex-wrap: nowrap;
     }
     /* Override the shared .teaser rule that forces width:100% on its media. */
     .teaser-row video, .teaser-row img { width: auto; }
